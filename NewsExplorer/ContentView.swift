@@ -38,18 +38,20 @@ struct ContentView: View {
                     }
                 
                 List(networkRequest.articles, id: \.self) { article in
-                    VStack(alignment: .leading, spacing: 10.0) {
-                        Text(article.title)
-                            .font(.body)
-                            .fontWeight(.bold)
-                            .lineLimit(2)
-                        
-                        Text(article.description ?? "")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .lineLimit(2)
+                    NavigationLink(destination: DetailView(article: article)) {
+                        VStack(alignment: .leading, spacing: 6.0) {
+                            Text(article.title)
+                                .font(.body)
+                                .fontWeight(.bold)
+                                .lineLimit(2)
+                            
+                            Text(article.description ?? "")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                                .lineLimit(2)
+                        }
+                        .padding(.vertical, 8.0)
                     }
-                    .padding(.vertical, 10.0)
                 }
                 .listStyle(.plain)
                 .padding([.top, .leading, .trailing], 8.0)
