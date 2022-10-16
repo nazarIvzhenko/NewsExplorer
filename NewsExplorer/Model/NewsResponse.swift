@@ -14,14 +14,14 @@ struct NewsResponse: Codable, Hashable {
 struct Article: Codable, Hashable {
     let source: Source
     let urlToImage: String?
-    let title: String
+    let title: String?
     let description: String?
     let author: String?
     let publishedAt: String?
     
     struct Source: Codable, Hashable {
         let id: String?
-        let name: String
+        let name: String?
     }
     
     static func demo() -> Article {

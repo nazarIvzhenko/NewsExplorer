@@ -16,8 +16,16 @@ class NetworkRequest: ObservableObject {
     
     @Published var articles: [Article] = []
     
-    func fetchNews(_ text: String) async throws {
-        guard let url = URL(string: "https://newsapi.org/v2/everything?q=\(text)&apiKey=f6de90660e9240fcbb0312d387858e38")
+    func fetchNews(_ text: String, sortBy: String? = nil) async throws {
+        var string: String
+        
+        if let sortBy = sortBy {
+            string = "https://newsapi.org/v2/everything?q=\(text)&sortBy=\(sortBy)&apiKey=f6de90660e9240fcbb0312d387858e38"
+        } else {
+            string = "https://newsapi.org/v2/everything?q=\(text)&apiKey=f6de90660e9240fcbb0312d387858e38"
+        }
+        
+        guard let url = URL(string: string)
         else {
             throw NewsFetchError.urlCreationError
         }

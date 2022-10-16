@@ -40,7 +40,7 @@ struct ContentView: View {
                 List(networkRequest.articles, id: \.self) { article in
                     NavigationLink(destination: DetailView(article: article)) {
                         VStack(alignment: .leading, spacing: 6.0) {
-                            Text(article.title)
+                            Text(article.title ?? "")
                                 .font(.body)
                                 .fontWeight(.bold)
                                 .lineLimit(2)
@@ -56,6 +56,45 @@ struct ContentView: View {
                 .listStyle(.plain)
                 .padding([.top, .leading, .trailing], 8.0)
                 .navigationTitle("News")
+                .toolbar {
+                    Menu {
+                        Button("Relevancy") {
+                            Task {
+                                do {
+                                    try await networkRequest.fetchNews(word, sortBy: "relevancy")
+                                } catch {
+                                    print(error)
+                                    
+                                    showFetchNewsFailedAlert = true
+                                }
+                            }
+                        }
+                        Button("Popularity") {
+                            Task {
+                                do {
+                                    try await networkRequest.fetchNews(word, sortBy: "popularity")
+                                } catch {
+                                    print(error)
+                                    
+                                    showFetchNewsFailedAlert = true
+                                }
+                            }
+                        }
+                        Button("PublishedAt") {
+                            Task {
+                                do {
+                                    try await networkRequest.fetchNews(word, sortBy: "publishedAt")
+                                } catch {
+                                    print(error)
+                                    
+                                    showFetchNewsFailedAlert = true
+                                }
+                            }
+                        }
+                    } label: {
+                        Text("Sort by")
+                    }
+                }
             }
         }
     }

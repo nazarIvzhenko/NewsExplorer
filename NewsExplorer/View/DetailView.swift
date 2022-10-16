@@ -12,7 +12,7 @@ struct DetailView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(article.title)
+            Text(article.title ?? "")
                 .font(.title2)
                 .fontWeight(.semibold)
                 .lineLimit(2)
@@ -20,7 +20,7 @@ struct DetailView: View {
                 .padding(.bottom, 1)
             
             HStack(spacing: 4) {
-                Text(article.source.name)
+                Text(article.source.name ?? "")
                 Text("•")
                     .font(.system(size: 18))
                 
